@@ -8,10 +8,7 @@ var speed; // speed at which the bugs travel
 var bugChance; // chance of a new bug being pushed
 
 function setup() {
-    createCanvas(
-        Math.min(window.innerWidth, 800),
-        Math.min(window.innerHeight, 800)
-    );
+    createCanvas(window.innerWidth, window.innerHeight);
 
     score = 0;
     totalClicks = 0;
