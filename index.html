@@ -7,25 +7,51 @@
             content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
         />
 
-        <script
-            text="text/javascript"
-            src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.min.js"
-        ></script>
-        <script text="text/javascript" src="AntSmasher.js"></script>
-        <script text="text/javascript" src="Insect.js"></script>
+        <title>Vaccine Smasher - Save your kid from evil vaccines!</title>
+        <link rel="stylesheet" href="style.css" />
 
-        <style>
-            body {
-                display: flex;
-                overflow: hidden;
-
-                margin: 0;
-
-                height: 100vh;
-
-                align-items: center;
-                justify-content: center;
-            }
-        </style>
+        <link
+            href="https://fonts.googleapis.com/css?family=Fredoka+One|Open+Sans&display=swap"
+            rel="stylesheet"
+        />
     </head>
+    <body>
+        <div class="container">
+            <img src="/assets/angry_mommy.png" />
+            <h1>
+                Vaccine Smasher
+            </h1>
+            <h2>Save your kids from evil vaccines!</h2>
+            <p>
+                Use the mouse to smash the syringes and bottles filled with the
+                devil's poison, but keep the viruses alive. Don't let them reach
+                your kid or else it will be safe and healthy, and you don't want
+                that, right?
+            </p>
+            <button data-start-game>
+                START
+            </button>
+        </div>
+    </body>
+    <script>
+        document
+            .querySelector('[data-start-game]')
+            .addEventListener('click', () => {
+                const scriptLib = document.createElement('script');
+                scriptLib.src =
+                    'https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.min.js';
+
+                const scriptMain = document.createElement('script');
+                scriptMain.src = 'AntSmasher.js';
+
+                const scriptInsect = document.createElement('script');
+                scriptInsect.src = 'Insect.js';
+
+                document.body.innerHTML = null;
+
+                document.body.append(scriptLib);
+                document.body.append(scriptInsect);
+                document.body.append(scriptMain);
+            });
+    </script>
 </html>
