@@ -1,11 +1,11 @@
-var bugs = [];
+const bugs = [];
 
-var score;
-var totalClicks; // how many times the user has clicked (for accuracy)
-var playing; // aids with asychronous endGame() function
+let score;
+let totalClicks; // how many times the user has clicked (for accuracy)
+let playing; // aids with asychronous endGame() function
 
-var speed; // speed at which the bugs travel
-var bugChance; // chance of a new bug being pushed
+let speed; // speed at which the bugs travel
+let bugChance; // chance of a new bug being pushed
 
 function setup() {
     createCanvas(window.innerWidth, window.innerHeight);
@@ -37,7 +37,7 @@ function draw() {
  * squashes bugs
  */
 function mousePressed() {
-    for (var i = 0; i < bugs.length; i++) {
+    for (let i = 0; i < bugs.length; i++) {
         // update bug's state
         bugs[i].squashed = bugs[i].squashedBy(mouseX, mouseY);
 
@@ -54,7 +54,7 @@ function mousePressed() {
  * handles bugs array
  */
 function handleBugs() {
-    for (var i = bugs.length - 1; i >= 0; i--) {
+    for (let i = bugs.length - 1; i >= 0; i--) {
         /* update & draw */
         bugs[i].update();
         bugs[i].draw();
@@ -84,8 +84,8 @@ function attemptNewBug(frame) {
         if (random() < bugChance) {
             // probability of a new bug
 
-            var x = random(width / 2) + width / 4; // only in the middle
-            var type = random() > 0.8; // good or bad bug
+            const x = random(width / 2) + width / 4; // only in the middle
+            const type = random() > 0.8; // good or bad bug
             bugs.push(new Insect(x, type));
         }
     }
@@ -121,7 +121,7 @@ function gameOver(playing) {
         // prevent division by zero
         totalClicks = totalClicks === 0 ? 1 : totalClicks;
 
-        var accuracy = Math.round((score / totalClicks) * 100);
+        const accuracy = Math.round((score / totalClicks) * 100);
         textSize(30);
         text('Squash accuracy: ' + accuracy + '%', width / 2, height / 2 + 70);
         textAlign(LEFT);
