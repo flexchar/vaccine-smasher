@@ -8,7 +8,7 @@ class Insect {
         this.type = type; // false = ant, true = bee
         this.squashed = false; // bug state
 
-        this.radius = 100; // size of bug
+        this.radius = 110; // size of bug
 
         this.randomBool = Math.random() * 10 > 5;
 

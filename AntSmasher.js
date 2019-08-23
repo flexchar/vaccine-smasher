@@ -1,3 +1,4 @@
+// Proudly based upon https://github.com/Kaelinator/AGAD/tree/master/Ant%20Smasher
 const bugs = [];
 
 let score;
@@ -99,8 +100,8 @@ function handleDifficulty(frame, score) {
     if (frame % 60 === 0) {
         // update once every second
 
-        bugChance = map(score, 0, 500, 0.4, 0.999);
-        speed = map(score, 0, 500, 3, 30);
+        bugChance = map(score, 0, 800, 3, 0.999);
+        speed = map(score, 0, 800, 3, 30);
     }
 }
 
@@ -108,20 +109,25 @@ function handleDifficulty(frame, score) {
  * draws game over message
  */
 function gameOver(playing) {
-    if (!playing) {
+    if (playing === false) {
         // only if the game has ended
-
         fill(255);
         noStroke();
         textSize(60);
         textAlign(CENTER);
-
         text('Game Over!', width / 2, height / 2);
 
         // prevent division by zero
         totalClicks = totalClicks === 0 ? 1 : totalClicks;
 
         const accuracy = Math.round((score / totalClicks) * 100);
+
+        const gameScores = JSON.parse(localStorage.getItem('gameScores')) || [];
+        gameScores.push(score);
+        localStorage.setItem('gameScores', JSON.stringify(gameScores));
+
+        return theEndScreen(accuracy);
+
         textSize(30);
         text('Squash accuracy: ' + accuracy + '%', width / 2, height / 2 + 70);
         textAlign(LEFT);
@@ -145,4 +151,42 @@ function drawScore() {
 function endGame() {
     playing = false;
     noLoop();
+}
+
+function theEndScreen(accuracy) {
+    const div = document.createElement('div');
+    const p = document.createElement('p');
+    const p2 = document.createElement('p');
+    const h1 = document.createElement('h1');
+    const h2 = document.createElement('h2');
+    const button = document.createElement('button');
+    const gameScores = JSON.parse(localStorage.getItem('gameScores')) || [];
+
+    div.className = 'container';
+
+    button.innerText = 'Try again';
+    button.onclick = () => location.reload();
+
+    h1.innerText = 'Game Over!';
+    h2.innerText = 'Get over it :D';
+
+    p.innerText = `Your score ${
+        gameScores[gameScores.length - 1]
+    }, the highest score ${Math.max(...gameScores)}, total plays ${
+        gameScores.length
+    } ✌`;
+
+    p2.innerText = `Your squash acurracy ${accuracy}%, but who cares 😜`;
+
+    div.appendChild(h1);
+    div.appendChild(h2);
+    div.appendChild(p);
+    div.appendChild(p2);
+    div.appendChild(button);
+
+    document.body.prepend(div);
+
+    const canvas = document.querySelector('canvas');
+
+    document.body.removeChild(canvas);
 }

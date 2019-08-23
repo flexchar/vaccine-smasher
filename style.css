@@ -28,6 +28,10 @@ body {
 .container h1 {
   font-family: 'Fredoka One', cursive;
   font-size: 4rem;
+
+  line-height: 1;
+
+  margin: 0;
 }
 
 button {
